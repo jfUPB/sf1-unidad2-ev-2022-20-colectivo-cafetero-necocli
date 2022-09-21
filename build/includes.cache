@@ -1,0 +1,17 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/home/pop-os/Apps/arduino-1.8.19-linux64/arduino-1.8.19/portable/packages/esp32/hardware/esp32/2.0.4/cores/esp32"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/home/pop-os/Apps/arduino-1.8.19-linux64/arduino-1.8.19/portable/packages/esp32/hardware/esp32/2.0.4/variants/esp32"
+  },
+  {
+    "Sourcefile": "/home/pop-os/SFI/Unidad2/Ejercicio2/build/sketch/sketch.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]
