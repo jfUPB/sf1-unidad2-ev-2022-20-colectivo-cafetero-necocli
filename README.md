@@ -2,6 +2,11 @@
 
 ## Equipo: Colectivo Cafetero Necoclí
 
+## Participantes: 
+
+* Juan Pablo Correa - ID: 000449689
+* Manuela Cuervo - ID: 000446641
+* William Alejandro Pabón - ID: 000225366
 
 **Enunciado:**
 
