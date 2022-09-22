@@ -153,7 +153,7 @@ o apagar uno de los tres leds, comunica esto a la protoboard y enciende el led.
 
 * Comenzamos inicializando las librerías de Unity, y declarando las variables y los objetos dentro del editor.
 
-
+```
        using System;
        using UnityEngine;
        using System.IO.Ports;
@@ -171,13 +171,13 @@ o apagar uno de los tres leds, comunica esto a la protoboard y enciende el led.
     
       public GameObject selection;
       public GameObject status;
-
+```
 
 * Continuamos con un Método Start en el que inicializamos cada una de las variables, declarando el puerto serial,
 el puerto al que está conectado, su baut rate, habilitando su lectura, declarando cuando deja de leer una línea, 
 abriendo el puerto serial y anuncia en la consola que se ha abierto.
 
-
+```
  
      void Start()
     {
@@ -190,12 +190,12 @@ abriendo el puerto serial y anuncia en la consola que se ha abierto.
         Debug.Log("Open Serial Port");
     }
 
-
+```
 *Posteriormente, nos encontramos con el método Update, que en él hay un ciclo *if* donde se lee qué botón está siendo
 presionado y lo muestra por medio de la interfaz de Unity.
 
 
-    
+```    
     void Update()
     {
         if (_serialPort.BytesToRead > 0)
@@ -225,13 +225,13 @@ presionado y lo muestra por medio de la interfaz de Unity.
             }
         }
     }
-    
+```    
 
 
 * Establecemos un método *ReadBtn* en el cual se leerán los estados de cada uno de los botones
 
 
-
+```
         public void ReadBtn()
       {
   
@@ -240,12 +240,12 @@ presionado y lo muestra por medio de la interfaz de Unity.
         _serialPort.Write("C3\n");
         Debug.Log("Send CMS");
       }
-
+```
 
 * Por último, El método *LedControl* contiene un *switch* el cual, dependiendo del caso y el estado, se enviará la señal por medio del puerto serial a 
 la protoboard y se prenderá el led del botón que se esté presionando.
-  
-      
+
+```      
        public void LedControl()
   
        {
@@ -290,4 +290,4 @@ la protoboard y se prenderá el led del botón que se esté presionando.
          }
        }
 
-
+```
