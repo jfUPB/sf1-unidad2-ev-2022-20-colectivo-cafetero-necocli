@@ -15,11 +15,15 @@ La aplicación debe tener la siguiente interfaz de usuario:*
 **Criterios de evaluación**
 
 ##
-## review del código
+# review del código
 
-# Microcontrolador
+## Microcontrolador
+
 * Este script inicializa las librerías, el estado de los botones, los eventos, y la función principal.
+
+
 ```
+
 #include <Arduino.h>
 #include "task2.h"
 
@@ -43,6 +47,7 @@ enum TaskStates
 ```
 
 * Posteriormente, Declaramos las variables de los botones y leds en sus respectivos puertos.
+
 ```
 
  static TaskStates taskState = TaskStates::INIT;
@@ -56,7 +61,7 @@ constexpr u_int8_t led_y = 33;
    
 ```
 
-* A continuación realizamos un *switch* para establecer lo que debe hacer cuando cambia al estado INIT
+* A continuación realizamos un *switch* para establecer lo que debe hacer cuando cambia al estado INIT.
 
 ```
 
@@ -131,9 +136,12 @@ switch (taskState)
         break;
     }
 }
+
 ```
+
 * Si los datos enviados al puerto serial son mayores a cero (0), lee la cadena tipo string hasta que haya un salto de línea.
 Cuando compara en los botones, hay tres casos posibles:
+
 1. Si el mensaje corresponde al del boton1, revisa el estado actual del botón 
 2. Si el mensaje corresponde al del boton2, revisa el estado actual del botón
 3. Si el mensaje corresponde al del boton3, revisa el estado actual del botón
@@ -141,10 +149,12 @@ Cuando compara en los botones, hay tres casos posibles:
 Mientras que con los leds, revisa el mensaje enviado desde el pc hasta el puerto serial. Si este mensaje corresponde con encender 
 o apagar uno de los tres leds, comunica esto a la protoboard y enciende el led.
 
-# Unity
+## Unity
 
 * Comenzamos inicializando las librerías de Unity, y declarando las variables y los objetos dentro del editor.
+
 ´´´
+
 using System;
 using UnityEngine;
 using System.IO.Ports;
@@ -164,6 +174,7 @@ public class Main : MonoBehaviour
     public GameObject status;
     
 ´´´
+
 * Continuamos con un Método Start en el que inicializamos cada una de las variables, declarando el puerto serial,
 el puerto al que está conectado, su baut rate, habilitando su lectura, declarando cuando deja de leer una línea, 
 abriendo el puerto serial y anuncia en la consola que se ha abierto.
@@ -183,8 +194,10 @@ abriendo el puerto serial y anuncia en la consola que se ha abierto.
 ´´´
 
 *Posteriormente, nos encontramos con el método Update, que en él hay un ciclo *if* donde se lee qué botón está siendo
-presionado y lo muestra por medio de la interfaz de Unity
+presionado y lo muestra por medio de la interfaz de Unity.
+
 ´´´
+
  void Update()
     {
         if (_serialPort.BytesToRead > 0)
@@ -215,5 +228,65 @@ presionado y lo muestra por medio de la interfaz de Unity
         }
     }
     
+´´´
+
+* Establecemos un método *ReadBtn* en el cual se leerán los estados de cada uno de los botones
+
+´´´
+ public void ReadBtn()
+    {
+        _serialPort.Write("C1\n");
+        _serialPort.Write("C2\n");
+        _serialPort.Write("C3\n");
+        Debug.Log("Send CMS");
+    }
+
+´´´
+
+* Por último, El método *LedControl* contiene un *switch* el cual, dependiendo del caso y el estado, se enviará la señal por medio del puerto serial a 
+la protoboard y se prenderá el led del botón que se esté presionando.
+
+´´´
+  public void LedControl()
+    {
+        _index = selection.GetComponent<TMP_InputField>().text;
+        Debug.Log(_index);
+        _ledState = status.GetComponent<TMP_InputField>().text;
+        Debug.Log(_ledState);
+        
+        switch (_index)
+        {
+            case "1":
+                if (_ledState == "ON"){
+                    _serialPort.Write("1ON");
+                }
+                else{
+                    _serialPort.Write("1OFF");
+                }
+                break;
+            case "2":
+                if (_ledState == "ON"){
+                    _serialPort.Write("2ON");
+                }
+                else{
+                    _serialPort.Write("2OFF");
+                }
+                break;
+            case "3":
+                if (_ledState == "ON"){
+                    _serialPort.Write("3ON");
+                }
+                else{
+                    _serialPort.Write("3OFF");
+                }
+                break;
+            
+            default:
+                Debug.Log("Case doesn't exist.");
+                break;
+        }
+    }
+}
+
 ´´´
 
